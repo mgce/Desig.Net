@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" auto-import="true"
                    assembly="Designet" namespace="Designet.Models">
-  <class name="Customer" table="Customer" dynamic-update="true" >
+  <class name="Customer" table="Customer" dynamic-update="true" lazy="true">
+
+    <many-to-one not-null="true" name="Order" column="OrderId"/>
+    
     <cache usage="read-write"/>
     <id name="Id" column="Id" type="int">
       <generator class="native" />

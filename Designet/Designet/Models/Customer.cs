@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Designet.Models
 {
     public class Customer
     {
         public virtual int Id { get; set; }
-        public virtual string UserId { get; set; }
         public virtual string Name { get; set; }
+
+        public virtual IList<Order> Orders { get; set; }
     }
 }

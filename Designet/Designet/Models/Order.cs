@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Designet.Models
 {
@@ -15,5 +13,7 @@ namespace Designet.Models
 
         public virtual int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
+
+        public virtual IList<Note> Notes { get; set; }
     }
 }

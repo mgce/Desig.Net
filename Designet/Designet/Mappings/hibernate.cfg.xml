@@ -10,7 +10,7 @@
           
     </property>
         <property name="connection.connection_string">
-                Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="C:\Users\Admin\Documents\Visual Studio 2015\Projects\DesignetDB.mdf";Integrated Security=True;Connect Timeout=30
+                Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\mgajd\OneDrive\aspdotnet\Nauka\Nauka\Fux.BL\Database.mdf;Integrated Security=True;Connect Timeout=30
               
         </property>
         <property name="dialect">
