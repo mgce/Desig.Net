@@ -5,12 +5,10 @@
 	<meta charset="utf-8" />
 </head>
 <body>
-    <table id="customers" data-bind="visible: Customers().length > 0">
+    
+    <table data-bind="visible: Customers().length >0">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-            </tr>
+            <tr><th>Id</th><th> name</th></tr>
         </thead>
         <tbody data-bind="foreach: Customers">
             <tr>
@@ -18,16 +16,10 @@
                 <td data-bind="text: Name"></td>
             </tr>
         </tbody>
-        <tfoot>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tfoot>
-    </table> 
+    </table>
+
     <script type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="/Scripts/knockout-3.4.1.debug.js"></script>
+    <script type="text/javascript" src="/Scripts/knockout-3.4.1.debug.js"></script>  
     <script type="text/javascript" src="/Scripts/App.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Designet.Models;
+using Designet.NHibernate;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -12,16 +13,17 @@ namespace Designet.Controllers
 {
     public class CustomerController : ApiController
     {
-        private readonly ISession session;
+        protected ISession CurrentSession { get; set; }
 
         public CustomerController()
         {
-            session = WebApiApplication.SessionFactory.GetCurrentSession();
+            SessionHelper sessionHelper = new SessionHelper();
+            CurrentSession = sessionHelper.Current;
         }
         // GET: api/Customer
         public IEnumerable<Customer> Get()
-        {           
-            var customers = session.Query<Customer>().ToList();
+        {
+            var customers = CurrentSession.Query<Customer>().ToList();           
             return customers;
         }
 

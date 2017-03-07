@@ -8,5 +8,10 @@ namespace Designet.Models
         public virtual string Name { get; set; }
 
         public virtual IList<Order> Orders { get; set; }
+
+        public Customer()
+        {
+            Orders = new List<Order>();
+        }
     }
 }
