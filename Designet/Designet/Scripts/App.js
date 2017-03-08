@@ -19,20 +19,23 @@
             });
     }
 
-    self.create = function() {
+    self.create = function () {
         $.ajax({
             url: "api/Customer/",
             type: "POST",
-            contentType: "Application/json charset=utf-8",
-            data: ko.toJSON(Customer),
-            succes: function(data) {
-                self.Customer.push(data);
-                self.Name();
-            }
-        }).fail(
-            function(xhr, textStatus, err) {
+            async:false,
+            dataType: "json",
+            data: ko.toJSON(self),
+            contentType: "application/json",
+            success: function(data) {
+                self.Customers.push(data);
+                self.Name("");
+            },
+            error: function(xhr, textStatus, err) {
                 alert(err);
-            });
+                alert("error");
+            }
+        });
     }
 }
 

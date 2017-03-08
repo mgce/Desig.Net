@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Transactions;
 using System.Web.Http;
+using Designet.Dtos;
 using Designet.Models;
 using Designet.NHibernate;
 using NHibernate;
@@ -34,8 +36,16 @@ namespace Designet.Controllers
         }
 
         // POST: api/Customer
-        public void Post([FromBody]string value)
+        public IHttpActionResult Post(CustomerDto dto)
         {
+            using (ITransaction transaction = CurrentSession.BeginTransaction())
+            {
+                var customer = new Customer {Name = dto.Name};
+                CurrentSession.Save(customer);
+                transaction.Commit();
+                return Ok(customer);
+            }
+            
         }
 
         // PUT: api/Customer/5
