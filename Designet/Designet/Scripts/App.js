@@ -37,6 +37,50 @@
             }
         });
     }
+
+    self.delete = function(Customer) {
+        var id = Customer.Id;
+        $.ajax({
+            url: "api/Customer/" + id,
+            type: "DELETE",
+            dataType: "json",
+            data: {},
+            success: function() {
+                self.Customers.remove(Customer);
+            },
+            error: function (xhr, textStatus, err) {
+                alert(err);
+                alert("error");
+            }
+        });
+    }
+
+    self.edit = function(Customer) {
+        self.Customer(Customer);
+    };
+
+    self.update = function () {
+        var Customer = self.Customer();
+        var id = Customer.Id;
+
+        $.ajax({
+            url: "api/Customer/" + id,
+            cache: false,
+            type: "PUT",
+            dataType: "json",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            data: ko.toJSON(Customer),
+            success: function (data) {
+                self.getAll();
+                self.Customer(null);
+            }
+        })
+        .fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        });
+    }
 }
 
 

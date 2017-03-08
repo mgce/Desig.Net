@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Transactions;
+using System.Web.Helpers;
 using System.Web.Http;
+
 using Designet.Dtos;
 using Designet.Models;
 using Designet.NHibernate;
@@ -49,13 +51,26 @@ namespace Designet.Controllers
         }
 
         // PUT: api/Customer/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, CustomerDto dto)
         {
+            using (ITransaction transaction = CurrentSession.BeginTransaction())
+            {
+                var editedCustomer = CurrentSession.Query<Customer>().First(x => x.Id == id);
+                editedCustomer.Name = dto.Name;
+                CurrentSession.Save(editedCustomer);
+                transaction.Commit();
+            }
         }
 
         // DELETE: api/Customer/5
         public void Delete(int id)
-        {
+        {           
+            using (ITransaction transaction = CurrentSession.BeginTransaction())
+            {
+                var customer = CurrentSession.Query<Customer>().First((x => x.Id == id));
+                CurrentSession.Delete(customer);
+                transaction.Commit();
+            }
         }
     }
 }

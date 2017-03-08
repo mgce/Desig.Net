@@ -15,11 +15,36 @@
                 <td data-bind="text: Id"></td>
                 <td data-bind="text: Name"></td>
             </tr>
+        <td>
+            <button data-bind="click: $root.edit">Edit</button>
+            <button type="button" data-bind="click: $root.delete">Delete</button>
+        </td>
         </tbody>
     </table>
     
+    <div data-bind="if: Customer">
+        <div>
+            <h2>Update Customer</h2>
+        </div>
+        <div>
+            <label for="customerId" data-bind="visible: false">ID</label>
+            <label data-bind="text: Customer().Id, visible: false"></label>
+
+        </div>
+        <div>
+            <label for="name">Name</label>
+            <input data-bind="value: Customer().Name" type="text" title="Name" />
+        </div>
+
+        <br />
+        <div>
+            <button data-bind="click: $root.update">Update</button>
+            <button data-bind="click: $root.cancel">Cancel</button>
+        </div>
+    </div>
+
     
-    <div data-bind="ifnot: Customer()">
+<div data-bind="ifnot: Customer()">
         <div>
             <h2>Add New Product</h2>
         </div>
