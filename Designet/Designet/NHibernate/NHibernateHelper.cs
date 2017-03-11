@@ -10,9 +10,9 @@ namespace Designet.NHibernate
 {
     public class NHibernateHelper
     {
-        private ISessionFactory _sessionFactory = null;
+        private static ISessionFactory _sessionFactory = null;
 
-        public ISessionFactory SessionFactory
+        public static ISessionFactory SessionFactory
         {
             get
             {
@@ -27,7 +27,7 @@ namespace Designet.NHibernate
             }
         }
 
-        public ISession OpenSession()
+        public static ISession OpenSession()
         {
             return SessionFactory.OpenSession();
         }

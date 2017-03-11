@@ -11,13 +11,13 @@
     <property name="Created" />
     <property name="Deadline" />
     <property name="CustomerId" />
-
+<!--
     <many-to-one name="Customer" class="Designet.Models.Customer, Designet" column="CustomerId" cascade="all"/>
 
     <bag name="Notes" lazy="true" inverse="true" cascade="all-delete-orphan">
       <key column="OrderId"/>
       <one-to-many class="Note"/>
     </bag>
-    
+  -->  
   </class>
 </hibernate-mapping>

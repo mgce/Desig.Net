@@ -10,6 +10,7 @@ using System.Web.Http;
 using Designet.Dtos;
 using Designet.Models;
 using Designet.NHibernate;
+using Designet.Repositories;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -17,17 +18,16 @@ namespace Designet.Controllers
 {
     public class CustomerController : ApiController
     {
-        protected ISession CurrentSession { get; set; }
+        private readonly CustomerRepository customerRepository;
 
         public CustomerController()
         {
-            SessionHelper sessionHelper = new SessionHelper();
-            CurrentSession = sessionHelper.Current;
+            customerRepository = new CustomerRepository();
         }
         // GET: api/Customer
         public IEnumerable<Customer> Get()
         {
-            var customers = CurrentSession.Query<Customer>().ToList();           
+            var customers = customerRepository.GetAllCustomers();         
             return customers;
         }
 
@@ -40,37 +40,24 @@ namespace Designet.Controllers
         // POST: api/Customer
         public IHttpActionResult Post(CustomerDto dto)
         {
-            using (ITransaction transaction = CurrentSession.BeginTransaction())
-            {
-                var customer = new Customer {Name = dto.Name};
-                CurrentSession.Save(customer);
-                transaction.Commit();
-                return Ok(customer);
-            }
-            
+            var customer = new Customer { Name = dto.Name };
+            customerRepository.Add(customer);
+            return Ok(customer);
         }
 
         // PUT: api/Customer/5
         public void Put(int id, CustomerDto dto)
-        {
-            using (ITransaction transaction = CurrentSession.BeginTransaction())
-            {
-                var editedCustomer = CurrentSession.Query<Customer>().First(x => x.Id == id);
-                editedCustomer.Name = dto.Name;
-                CurrentSession.Save(editedCustomer);
-                transaction.Commit();
-            }
+        {         
+            var editedCustomer = customerRepository.GetById(id);
+            editedCustomer.Name = dto.Name;
+            customerRepository.Update(editedCustomer);         
         }
 
         // DELETE: api/Customer/5
         public void Delete(int id)
-        {           
-            using (ITransaction transaction = CurrentSession.BeginTransaction())
-            {
-                var customer = CurrentSession.Query<Customer>().First((x => x.Id == id));
-                CurrentSession.Delete(customer);
-                transaction.Commit();
-            }
+        {                    
+            var customer = customerRepository.GetById(id);
+            customerRepository.Remove(customer);         
         }
     }
 }
