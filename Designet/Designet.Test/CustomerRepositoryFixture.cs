@@ -92,7 +92,7 @@ namespace Designet.Test
             using (ISession session = _sessionFactory.OpenSession())
             {
                 var fromDb = session.Get<Customer>(customer.Id);
-                Assert.IsNull(fromDb);
+                Assert.IsNull(fromDb);              
             }
         }
     }

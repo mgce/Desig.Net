@@ -18,6 +18,8 @@
       <key column="OrderId"/>
       <one-to-many class="Note"/>
     </bag>
-  -->  
+-->
+    
+    
   </class>
 </hibernate-mapping>

@@ -18,7 +18,7 @@ namespace Designet.Controllers
 {
     public class CustomerController : ApiController
     {
-        private readonly CustomerRepository customerRepository;
+        private readonly ICustomerRepository customerRepository;
 
         public CustomerController()
         {

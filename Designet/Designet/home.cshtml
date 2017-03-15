@@ -1,0 +1,76 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+<nav class="navbar-custom navbar navbar-inverse navbar-fixed-top">
+    <div class="nav-container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand">Desig.Net</div>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="content">
+        <div class="col-xs-1 col-sm-1 sidebar">
+            <ul class="nav" id="menu">
+                <li><a href="#"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span></a></li>
+            </ul>
+        </div>
+    </div>
+<div class="col-xs-2 col-sm-2 sidebar-customer">        
+    <div id="addCustomer">
+        <div class="input-group col-md-12">
+            <input data-bind="value: $root.Name" class="form-control" type="text" title="Name" />
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" data-bind="click: $root.create" type="button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </button>
+            </span>
+            </div>
+        </div>
+    <div></div>
+    <ul id="customer-list" data-bind="foreach: Customers">
+        <li class="list">
+            <label class="name" data-bind="text: Name"></label> 
+            <div class="pull-right dropdown">
+                <button class="btn btn-default dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#" data-bind="click: $root.edit">Edit Customer</a></li>
+                    <li><a href="#" data-bind="click: $root.delete">Delete Customer</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>         
+        </li>
+    </ul>
+
+</div>
+    <div class="col-xs-8 col-sm-8"></div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="/Scripts/knockout-3.4.1.debug.js"></script>
+    <script type="text/javascript" src="/Scripts/App.js"></script>
+</body>
+</html>
