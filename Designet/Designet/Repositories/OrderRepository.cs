@@ -9,57 +9,57 @@ using NHibernate.Linq;
 
 namespace Designet.Repositories
 {
-    public class CustomerRepository : ICustomerRepository
+    public class OrderRepository : IOrderRepository
     {
-        public void Add(Customer customer)
+        public void Add(Order order)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Save(customer);
+                    session.Save(order);
                     transaction.Commit();
                 }
             }
         }
 
-        public IEnumerable<Customer> GetAllCustomers()
-        {
-            using (ISession session = NHibernateHelper.OpenSession())
-            {
-                return session.Query<Customer>().ToList();
-            }
-        }
-
-        public Customer GetById(int customerId)
-        {
-            using (ISession session = NHibernateHelper.OpenSession())
-            {
-                return session.Query<Customer>().First(x => x.CustomerId == customerId);
-            }
-        }
-
-        public void Remove(Customer customer)
+        public void Update(Order order)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Delete(customer);
+                    session.Update(order);
+                    transaction.Commit();
+                }
+            }
+        }
+
+        public void Remove(Order order)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Delete(order);
                     transaction.Commit(); ;
                 }
             }
         }
 
-        public void Update(Customer customer)
+        public Order GetById(int orderId)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    session.Update(customer);
-                    transaction.Commit();
-                }
+                return session.Query<Order>().First(x => x.Id == orderId);
+            }
+        }
+
+        public IEnumerable<Order> GetOrdersByCustomer(int customerId)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                return session.Query<Order>().Where(x => x.CustomerId == customerId).ToList();
             }
         }
     }

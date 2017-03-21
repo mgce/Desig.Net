@@ -1,4 +1,4 @@
-﻿var CustomerViewModel = function()  {
+﻿var CustomerViewModel = function () {
 
     var self = this;
     self.Id = ko.observable();
@@ -11,6 +11,11 @@
 
     self.Customer = ko.observable();
     self.Customers = ko.observableArray();
+
+    self.selectedCustomer = ko.observable();
+    self.selectCustomer = function(customer) {
+        this.selectedCustomer(customer);
+    }
 
     self.getAll = function() {
         $.get("api/Customer/",
@@ -83,9 +88,34 @@
     }
 }
 
+var OrderViewModel = function() {
+    var self = this;
+
+    self.Id = ko.observable();
+    self.Description = ko.observable();
+    self.Price = ko.observable();
+    self.Created = ko.observable();
+    self.Deadline = ko.observable();
+
+    var Order = {
+        Id: self.Id,
+        Description: self.Description,
+        Price: self.Price,
+        Created: self.Created,
+        Deadline: self.Deadline
+    }
+
+    self.Order = ko.observable();
+    self.Orders = ko.observableArray();
+
+
+}
+
 
 $(document).ready(function() {
     var customerViewModel = new CustomerViewModel();
-    ko.applyBindings(customerViewModel);
+    var orderViewModel = new OrderViewModel();
+    ko.applyBindings(customerViewModel, document.getElementById("list-customer"));
+    ko.applyBindings(orderViewModel, document.getElementById("list-order"));
     customerViewModel.getAll();
 });

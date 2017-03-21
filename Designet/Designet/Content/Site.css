@@ -2,6 +2,7 @@
     height: 100%;
     background-color: white;
     color: white;
+    font-family: 'Open Sans', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -39,6 +40,10 @@ textarea {
 
 .nav-container {
     margin: 0;
+}
+
+#menu {
+    margin-top: 10px;
 }
 
 .content {
@@ -169,3 +174,8 @@ textarea {
     color: #41586e;
     padding: 5px 0px 5px;
 }
+
+.active {
+    background: #dce4eb !important;
+}
+
