@@ -8,11 +8,11 @@ using Designet.Models;
 namespace Designet.Repositories
 {
     public interface IOrderRepository
-    {
+    {       
         void Add(Order order);
         void Update(Order order);
         void Remove(Order order);
         Order GetById(int orderId);
-        IEnumerable<Order> GetOrdersByCustomer(int customerId);
+        IEnumerable<Order> Get();
     }
 }

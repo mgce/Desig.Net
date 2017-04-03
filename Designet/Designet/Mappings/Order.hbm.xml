@@ -3,16 +3,19 @@
                    assembly="Designet" namespace="Designet.Models">
   <class name="Order" table="Order" dynamic-update="true" lazy="true" > 
     <cache usage="read-write"/>
-    <id name="Id" column="Id" type="int">
+    <id name="OrderId" column="OrderId" type="int">
       <generator class="native" />
     </id>
+
+    <many-to-one name="Customer" column="CustomerId" cascade="all"/>
+    
     <property name="Description" />
     <property name="Price" />
     <property name="Created" />
     <property name="Deadline" />
     <property name="CustomerId" />
-
-    <many-to-one name="Customer" class="Designet.Models.Customer, Designet" column="CustomerId" cascade="all"/>
+    
+   
 <!--
     <bag name="Notes" lazy="true" inverse="true" cascade="all-delete-orphan">
       <key column="OrderId"/>

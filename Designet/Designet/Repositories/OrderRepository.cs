@@ -51,16 +51,18 @@ namespace Designet.Repositories
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                return session.Query<Order>().First(x => x.Id == orderId);
+                return session.Query<Order>().First(x => x.OrderId == orderId);
             }
         }
 
-        public IEnumerable<Order> GetOrdersByCustomer(int customerId)
+        public IEnumerable<Order> Get()
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                return session.Query<Order>().Where(x => x.CustomerId == customerId).ToList();
+                return session.Query<Order>().ToList();
             }
         }
+
+        
     }
 }

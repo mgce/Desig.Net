@@ -19,21 +19,11 @@ namespace Designet.Controllers
         }
 
         // GET: api/Order
-        public IEnumerable<string> Get()
+        public IEnumerable<Order> Get()
         {
-            return new string[] { "value1", "value2" };
+            return orderRepository.Get();
         }
 
-        public IEnumerable<Order> GetOrdersByCustomer(int customerId)
-        {
-            return orderRepository.GetOrdersByCustomer(customerId);
-        }
-
-        // GET: api/Order/5
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST: api/Order
         public void Post([FromBody]string value)

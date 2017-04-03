@@ -3,14 +3,14 @@
                    assembly="Designet" namespace="Designet.Models">
   <class name="Customer" table="Customer" dynamic-update="true" lazy="true" >
     <cache usage="read-write"/>
-    <id name="CustomerId" column="CustomerId" type="int">
+    <id name="Id" column="Id" type="int">
       <generator class="native" />
     </id>
     <property name="Name" />
 
-    <bag name="Orders" table="Order" lazy="true" inverse="true" cascade="all-delete-orphan">
+    <bag name="Orders" lazy="true" inverse="true" cascade="all-delete-orphan" >
       <key column="CustomerId"/>
-      <one-to-many class="Designet.Models.Order"/>
+      <one-to-many class="Order"/>
     </bag>
     
   </class>

@@ -3,6 +3,7 @@
     var self = this;
     self.Id = ko.observable();
     self.Name = ko.observable();
+    self.Orders = ko.observableArray();
 
     var Customer = {
         Id: self.Id,
@@ -85,6 +86,22 @@
         function (xhr, textStatus, err) {
             alert(err);
         });
+
+        self.getOrders = function() {
+            var Customer = self.Customer();
+            var id = Customer.Id;
+
+            $.ajax({
+                url: "api/Order/" + id,
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: ko.toJSON(Customer),
+                success: function(data) {
+                    self.Orders(data);
+                }
+            });
+        }
     }
 }
 
