@@ -135,20 +135,8 @@ var OrderViewModel = function() {
             });
     }
 
-    self.getOrder = function () {       
-            $.ajax({
-                url: "api/Order/GetByCustomer" + self.cId(),
-                type: "GET",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: ko.toJSON(Order),
-                success: function(data) {
-                    self.Orders(data);
-                }
-            });
-    }
-
     self.create = function () {
+        self.CustomerId = self.cId();
         $.ajax({
             url: "api/Order/",
             type: "POST",
@@ -175,7 +163,7 @@ $(document).ready(function() {
     var customerViewModel = new CustomerViewModel();
     var orderViewModel = new OrderViewModel();
     ko.applyBindings(customerViewModel, document.getElementById("list-customer"));
-    ko.applyBindings(orderViewModel, document.getElementById("order-list"));
+    ko.applyBindings(orderViewModel, document.getElementById("list-order"));
     customerViewModel.getAll();
 
     $("#customer-list").on("click", ".list", function (e) {

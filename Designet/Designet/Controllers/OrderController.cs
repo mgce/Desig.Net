@@ -34,7 +34,7 @@ namespace Designet.Controllers
 
 
         // POST: api/Order
-        public void Post(OrderDto dto)
+        public IHttpActionResult Post(OrderDto dto)
         {
             var customer = customerRepository.GetById(dto.CustomerId);
 
@@ -48,6 +48,7 @@ namespace Designet.Controllers
             };
             customerRepository.Update(customer);
             orderRepository.Add(order);
+            return Ok(order);
         }
 
         // PUT: api/Order/5

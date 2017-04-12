@@ -72,17 +72,17 @@
 <div class="col-xs-8 col-sm-8" id="list-order">
     <div id="addOrder">
         <div class="input-group col-md-12">
-            <input class="form-control" type="text" title="Order" data-bind="value: $root.Description" />
+            <input class="form-control" type="text" title="Order" data-bind="value:$root.Description" />
             <span class="input-group-btn">
-                <button class="btn btn-info btn-lg" data-bind="click: $root.create" type="button">
+                <button class="btn btn-info btn-lg" data-bind="click:$root.create" type="button">
                     <i class="glyphicon glyphicon-plus"></i>
                 </button>
             </span>
         </div>
     </div>
-    <ul data-bind="foreach: Orders" id="order-list">
+    <ul data-bind="foreach:Orders" id="order-list">
         <li>
-            <label data-bind="text: Description"></label>
+            <label data-bind="text:Description"></label>
         </li>
     </ul>
 </div>
