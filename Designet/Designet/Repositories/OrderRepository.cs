@@ -51,7 +51,7 @@ namespace Designet.Repositories
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                return session.Query<Order>().First(x => x.OrderId == orderId);
+                return session.Query<Order>().First(x => x.Id == orderId);
             }
         }
 
@@ -63,6 +63,23 @@ namespace Designet.Repositories
             }
         }
 
-        
+        public IEnumerable<Order> GetByCustomer(int customerId)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                var customer = session.Get<Customer>(customerId);
+                ICollection<Order> orders = new List<Order>();
+                if (customer != null)
+                {
+                    NHibernateUtil.Initialize(customer.Orders);
+                    foreach (var order in customer.Orders)
+                    {
+                        orders.Add(order);                          
+                    }
+                    return orders;
+                }
+                return null;
+            }
+        }
     }
 }

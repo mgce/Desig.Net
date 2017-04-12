@@ -14,5 +14,6 @@ namespace Designet.Repositories
         void Remove(Order order);
         Order GetById(int orderId);
         IEnumerable<Order> Get();
+        IEnumerable<Order> GetByCustomer(int customerId);
     }
 }

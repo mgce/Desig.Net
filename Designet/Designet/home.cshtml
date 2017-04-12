@@ -46,21 +46,21 @@
             <span class="input-group-btn">
                 <button class="btn btn-info btn-lg" data-bind="click: $root.create" type="button">
                     <i class="glyphicon glyphicon-plus"></i>
-                </button>1
+                </button>
             </span>
             </div>
         </div>
     <div></div>
 
     <ul id="customer-list" data-bind="foreach: Customers">
-        <li class="list">
+        <li class="list" data-bind="click: $root.test">
             <label class="name" data-bind="text: Name"></label> 
             <div class="pull-right dropdown">
                 <button class="btn btn-default dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#" data-bind="click: $root.edit">Edit Customer</a></li>
+                    <li><a href="#" data-bind="click: $root.test">Edit Customer</a></li>
                     <li><a href="#" data-bind="click: $root.delete">Delete Customer</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="#">About</a></li>
@@ -68,23 +68,30 @@
             </div>         
         </li>
     </ul>
-
 </div>
 <div class="col-xs-8 col-sm-8" id="list-order">
-    <div class="input-group col-md-12">
-        <input class="form-control" type="text" title="Order"/>
-        <span class="input-group-btn">
-            <button class="btn btn-info btn-lg" data-bind="click: $root.create" type="button">
-                <i class="glyphicon glyphicon-plus"></i>
-            </button>
-        </span>
+    <div id="addOrder">
+        <div class="input-group col-md-12">
+            <input class="form-control" type="text" title="Order" data-bind="value: $root.Description" />
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" data-bind="click: $root.create" type="button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </button>
+            </span>
+        </div>
     </div>
+    <ul data-bind="foreach: Orders" id="order-list">
+        <li>
+            <label data-bind="text: Description"></label>
+        </li>
+    </ul>
 </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript" src="/Scripts/knockout-3.4.1.debug.js"></script>
+    <script type="text/javascript" src="/Scripts/knockout-postbox.js"></script>
     <script type="text/javascript" src="/Scripts/Apps.js"></script>
-    <script type="text/javascript" src="/Scripts/App/CustomerMenu.js"></script>
+    <script type="text/javascript" src="/Scripts/App/CustomerMenus.js"></script>
 
 </body>
 </html>

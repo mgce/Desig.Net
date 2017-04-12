@@ -13,9 +13,7 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
+#customer-list input{
     max-width: 280px;
 }
 
@@ -178,4 +176,57 @@ textarea {
 .active {
     background: #dce4eb !important;
 }
+#list-order {
+    margin: 10px;
+}
 
+#addOrder {
+    padding: 3px;
+    border: solid 1px #e5e7e8;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+#addOrder input {
+    border: 0;
+    box-shadow: none;
+    height: 10px;
+    padding: 15px 0px 5px 0px;
+    
+}
+
+#addOrder button {
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 5px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#addOrder button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#addOrder .glyphicon-search{
+    font-size: 15px;
+}
+
+#order-list {
+    margin: 10px;
+    color: black;
+    list-style: none;
+    padding: 0;
+}
+
+#order-list li {
+    cursor: pointer;
+    position: relative;
+    padding: 5px 8px 5px 10px;
+    margin: 0 10px 5px 10px;
+    border: #e5e7e8 solid 1px;
+    border-radius: 0px;
+}

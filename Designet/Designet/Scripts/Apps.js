@@ -1,9 +1,13 @@
-﻿var CustomerViewModel = function () {
+﻿var shouter = new ko.subscribable();
+
+var CustomerViewModel = function () {
 
     var self = this;
     self.Id = ko.observable();
     self.Name = ko.observable();
     self.Orders = ko.observableArray();
+
+    self.cId = ko.observable().publishOn("customerId");
 
     var Customer = {
         Id: self.Id,
@@ -44,7 +48,8 @@
         });
     }
 
-    self.delete = function(Customer) {
+    self.delete = function (Customer) {
+        alert("Customer will be delete");
         var id = Customer.Id;
         $.ajax({
             url: "api/Customer/" + id,
@@ -65,44 +70,38 @@
         self.Customer(Customer);
     };
 
-    self.update = function () {
+    self.update = function(Customer) {
         var Customer = self.Customer();
         var id = Customer.Id;
 
         $.ajax({
-            url: "api/Customer/" + id,
-            cache: false,
-            type: "PUT",
-            dataType: "json",
-            async: false,
-            contentType: "application/json; charset=utf-8",
-            data: ko.toJSON(Customer),
-            success: function (data) {
-                self.getAll();
-                self.Customer(null);
-            }
-        })
-        .fail(
-        function (xhr, textStatus, err) {
-            alert(err);
-        });
-
-        self.getOrders = function() {
-            var Customer = self.Customer();
-            var id = Customer.Id;
-
-            $.ajax({
-                url: "api/Order/" + id,
-                type: "GET",
+                url: "api/Customer/" + id,
+                cache: false,
+                type: "PUT",
                 dataType: "json",
+                async: false,
                 contentType: "application/json; charset=utf-8",
                 data: ko.toJSON(Customer),
                 success: function(data) {
-                    self.Orders(data);
+                    self.getAll();
+                    self.Customer(null);
                 }
-            });
-        }
+            })
+            .fail(
+                function(xhr, textStatus, err) {
+                    alert(err);
+                });
     }
+
+    self.test = function (Customer) {
+        var id = Customer.Id;
+        self.cId(id);
+        //var ordervm = new OrderViewModel();
+        //ordervm.getOrder();
+        //alert(self.cId());
+        //alert(id);
+
+    }         
 }
 
 var OrderViewModel = function() {
@@ -113,6 +112,9 @@ var OrderViewModel = function() {
     self.Price = ko.observable();
     self.Created = ko.observable();
     self.Deadline = ko.observable();
+    self.CustomerId = ko.observable();
+
+    self.cId = ko.observable().subscribeTo("customerId");
 
     var Order = {
         Id: self.Id,
@@ -125,6 +127,46 @@ var OrderViewModel = function() {
     self.Order = ko.observable();
     self.Orders = ko.observableArray();
 
+    self.getOrders = function () {
+        $.get("api/Order/GetByCustomer/" + self.cId(),
+            function (data) {
+                self.Orders("");
+                self.Orders(data);
+            });
+    }
+
+    self.getOrder = function () {       
+            $.ajax({
+                url: "api/Order/GetByCustomer" + self.cId(),
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: ko.toJSON(Order),
+                success: function(data) {
+                    self.Orders(data);
+                }
+            });
+    }
+
+    self.create = function () {
+        $.ajax({
+            url: "api/Order/",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: ko.toJSON(self),
+            contentType: "application/json",
+            success: function (data) {
+                self.Orders.push(data);
+                self.Description("");
+            },
+            error: function (xhr, textStatus, err) {
+                alert(err);
+                alert("error");
+            }
+        });
+    }
+
 
 }
 
@@ -133,6 +175,11 @@ $(document).ready(function() {
     var customerViewModel = new CustomerViewModel();
     var orderViewModel = new OrderViewModel();
     ko.applyBindings(customerViewModel, document.getElementById("list-customer"));
-    ko.applyBindings(orderViewModel, document.getElementById("list-order"));
+    ko.applyBindings(orderViewModel, document.getElementById("order-list"));
     customerViewModel.getAll();
+
+    $("#customer-list").on("click", ".list", function (e) {
+        orderViewModel.Orders.remove();
+        orderViewModel.getOrders();
+    });
 });
