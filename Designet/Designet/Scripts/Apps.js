@@ -49,10 +49,9 @@ var CustomerViewModel = function () {
     }
 
     self.delete = function (Customer) {
-        alert("Customer will be delete");
         var id = Customer.Id;
         $.ajax({
-            url: "api/Customer/" + id,
+            url: "api/Customer/Delete/" + id,
             type: "DELETE",
             dataType: "json",
             data: {},
@@ -96,11 +95,6 @@ var CustomerViewModel = function () {
     self.test = function (Customer) {
         var id = Customer.Id;
         self.cId(id);
-        //var ordervm = new OrderViewModel();
-        //ordervm.getOrder();
-        //alert(self.cId());
-        //alert(id);
-
     }         
 }
 
@@ -155,7 +149,46 @@ var OrderViewModel = function() {
         });
     }
 
+    self.deleteOrder = function (Order) {
+        var id = Order.Id;
+        $.ajax({
+            url: "api/Order/Delete/" + id,
+            type: "DELETE",
+            dataType: "json",
+            data: {},
+            success: function () {
+                self.Orders.remove(Order);
+            },
+            error: function (xhr, textStatus, err) {
+                alert(err);
+                alert("error");
+            }
+        });
+    }
 
+    self.showDetails = function(Order) {
+        var Order = self.Order(Order);
+        //$(".popup").css("display", "block");
+        $(".popup").fadeIn(300, function() { $(this).focus(); });
+    };
+
+    self.close = function() {
+        $(".popup").fadeOut();
+    };
+
+    self.update = function() {
+        var Order = self.Order();
+
+        $.ajax({
+            url: "api/Order/" + Order.Id,
+            type: "PUT",
+            dataType: "json",
+            data: ko.toJSON(Order),
+            succes: function() {
+                self.close();
+            }
+        });
+    }
 }
 
 
@@ -164,10 +197,17 @@ $(document).ready(function() {
     var orderViewModel = new OrderViewModel();
     ko.applyBindings(customerViewModel, document.getElementById("list-customer"));
     ko.applyBindings(orderViewModel, document.getElementById("list-order"));
+    ko.applyBindings(orderViewModel, document.getElementById("editOrder"));
     customerViewModel.getAll();
 
     $("#customer-list").on("click", ".list", function (e) {
         orderViewModel.Orders.remove();
         orderViewModel.getOrders();
     });
+
+    $("#order-list").on("click",
+        ".list",
+        function() {
+            //orderViewModel.ShowDetails();
+        });
 });

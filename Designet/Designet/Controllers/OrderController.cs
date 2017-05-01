@@ -22,9 +22,9 @@ namespace Designet.Controllers
         }
 
         // GET: api/Order
-        public IEnumerable<Order> Get()
+        public Order GetOrder(int id)
         {
-            return orderRepository.Get();
+            return orderRepository.GetById(id);
         }
 
         public IEnumerable<Order> GetByCustomer(int id)
@@ -54,11 +54,14 @@ namespace Designet.Controllers
         // PUT: api/Order/5
         public void Put(int id, [FromBody]string value)
         {
+
         }
 
         // DELETE: api/Order/5
         public void Delete(int id)
         {
+            var order = orderRepository.GetById(id);
+            orderRepository.Remove(order);
         }
     }
 }
