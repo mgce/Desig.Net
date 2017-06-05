@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Designet.Models
 {
+    [DataContract(IsReference = true)]
+    [JsonObject(IsReference = false)]
     public class Order
     {
         public virtual int Id { get; set; }
@@ -14,6 +18,6 @@ namespace Designet.Models
         public virtual int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
-        public virtual IList<Note> Notes { get; set; }
+        //public virtual IList<Note> Notes { get; set; }
     }
 }

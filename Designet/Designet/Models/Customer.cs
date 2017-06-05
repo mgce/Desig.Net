@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Designet.Models
 {
@@ -7,6 +9,6 @@ namespace Designet.Models
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }
 
-        public virtual IList<Order> Orders { get; set; }
+        public virtual ISet<Order> Orders { get; set; }
     }
 }
